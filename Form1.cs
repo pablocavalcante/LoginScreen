@@ -79,13 +79,15 @@ namespace LoginScreen
                     var response = await client.PostAsync("http://localhost:3000/", content);
                     var result = await response.Content.ReadAsStringAsync();
 
-                    if (response.IsSuccessStatusCode && result.Contains("Bem-Vindo"))
-                    {
+                    if (response.IsSuccessStatusCode && result.Contains("Bem-Vindo")) {
+                       
+                    
                         new Form2().Show();
                         this.Hide();
                     }
                     else
                     {
+               
                         lblErro.Text = "Usuário ou senha incorretos. \nTente novamente.";
                         txtUsername.Clear();
                         txtPassword.Clear();
