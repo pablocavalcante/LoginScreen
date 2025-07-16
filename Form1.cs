@@ -97,6 +97,9 @@ namespace LoginScreen
                 catch (Exception ex)
                 {
                     lblErro.Text = "Erro ao conectar com servidor:\n" + ex.Message;
+                    txtUsername.Clear();
+                    txtPassword.Clear();
+                    txtUsername.Focus();
                 }
             }
         }
