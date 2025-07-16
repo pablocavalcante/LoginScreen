@@ -88,7 +88,7 @@ namespace LoginScreen
                     else
                     {
                
-                        lblErro.Text = "Usuário ou senha incorretos. \nTente novamente.";
+                        lblErro.Text = "Usuário ou senha incorretos. Tente novamente.";
                         txtUsername.Clear();
                         txtPassword.Clear();
                         txtUsername.Focus();
