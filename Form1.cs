@@ -7,6 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Http;
+using Newtonsoft.Json;
+
+
+
 
 namespace LoginScreen
 {
@@ -44,9 +49,8 @@ namespace LoginScreen
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-
             if (comboBox1.SelectedIndex == 0)
             {
                 lblErro.Text = "Selecione uma empresa antes \nde entrar.";
@@ -54,22 +58,48 @@ namespace LoginScreen
                 return;
             }
 
+            string usuario = txtUsername.Text;
+            string senha = txtPassword.Text;
+            string empresa = comboBox1.SelectedItem.ToString();
 
-            if (txtUsername.Text == "admin" && txtPassword.Text == "1234")
+            var payload = new
             {
-                new Form2().Show();
-                this.Hide();
-            }
-            else
+                codigo_usuario = usuario,
+                senha = senha,
+                empresa = empresa
+            };
+
+            var json = JsonConvert.SerializeObject(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            using (HttpClient client = new HttpClient())
             {
-                lblErro.Text = "Usuário ou senha incorretos. \nTente novamente.";
-                txtUsername.Clear();
-                txtPassword.Clear();
-                txtUsername.Focus();
+                try
+                {
+                    var response = await client.PostAsync("http://localhost:3000/", content);
+                    var result = await response.Content.ReadAsStringAsync();
+
+                    if (response.IsSuccessStatusCode && result.Contains("Bem-Vindo"))
+                    {
+                        new Form2().Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        lblErro.Text = "Usuário ou senha incorretos. \nTente novamente.";
+                        txtUsername.Clear();
+                        txtPassword.Clear();
+                        txtUsername.Focus();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblErro.Text = "Erro ao conectar com servidor:\n" + ex.Message;
+                }
             }
-            
         }
 
-        
+
+
     }
 }
