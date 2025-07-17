@@ -34,6 +34,7 @@ namespace LoginScreen
                 "Empresa B",
                 "Empresa C",
                 "Empresa D",
+                "Empresa E",
             };
 
             cmbOrgao.DataSource = empresas;
