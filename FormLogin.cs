@@ -15,17 +15,17 @@ using Newtonsoft.Json;
 
 namespace LoginScreen
 {
-    public partial class Form1 : Form
+    public partial class FormLogin : Form
     {
-        public Form1()
+        public FormLogin()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void FormLogin_Load(object sender, EventArgs e)
         {
             txtUsername.Focus();
-            this.AcceptButton = button1;
+            this.AcceptButton = btnLogin;
 
             List<String> empresas = new List<string>()
             {
@@ -36,11 +36,11 @@ namespace LoginScreen
                 "Empresa D",
             };
 
-            comboBox1.DataSource = empresas;
+            cmbOrgao.DataSource = empresas;
 
-            toolTip1.SetToolTip(pictureBox2, "Usuário");
-            toolTip1.SetToolTip(pictureBox3, "Senha");
-            toolTip1.SetToolTip(pictureBox4, "Empresa");
+            toolTip1.SetToolTip(picUserIcon, "Usuário");
+            toolTip1.SetToolTip(picSenhaIcon, "Senha");
+            toolTip1.SetToolTip(picOrgaoIcon, "Empresa");
 
             lblErro.MaximumSize = new Size(300, 0);
             lblErro.AutoSize = true;
@@ -49,18 +49,18 @@ namespace LoginScreen
 
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex == 0)
+            if (cmbOrgao.SelectedIndex == 0)
             {
                 lblErro.Text = "Selecione uma empresa antes \nde entrar.";
-                comboBox1.Focus();
+                cmbOrgao.Focus();
                 return;
             }
 
             string usuario = txtUsername.Text;
             string senha = txtPassword.Text;
-            string empresa = comboBox1.SelectedItem.ToString();
+            string empresa = cmbOrgao.SelectedItem.ToString();
 
             var payload = new
             {
