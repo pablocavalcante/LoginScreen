@@ -77,7 +77,7 @@ namespace LoginScreen
             {
                 try
                 {
-                    var response = await client.PostAsync("http://localhost:3000/", content);
+                    var response = await client.PostAsync("http://10.64.0.207:3000/", content);
                     var result = await response.Content.ReadAsStringAsync();
 
                     if (response.IsSuccessStatusCode && result.Contains("Bem-Vindo")) {
